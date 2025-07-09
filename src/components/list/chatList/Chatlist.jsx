@@ -1,4 +1,4 @@
-import { CircleUser, Minus, Plus, Search, UserRoundPlus } from 'lucide-react'
+import { CircleUser, Minus, Plus, Search, UserRoundPlus, X } from 'lucide-react'
 import React, { useState } from 'react'
 
 export default function Chatlist() {
@@ -41,6 +41,35 @@ export default function Chatlist() {
         </div>
 
       </div>
+
+      {/* Modal Search Box - positioned over Chat section */}
+      {addMode && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-gray-800 rounded-lg p-6 w-1/3 max-w-sm mx-4 shadow-xl">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-white text-lg font-semibold">Add New Chat</h3>
+              <button 
+                onClick={() => setAddMode(false)}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <div className="flex items-center bg-gray-700 rounded-lg px-3 py-2 mb-4">
+              <Search color='white' className='mr-2 opacity-70' />
+              <input 
+                type="text" 
+                placeholder='Search for users...' 
+                className="bg-transparent outline-none text-white placeholder-gray-400 flex-grow" 
+                autoFocus
+              />
+            </div>
+            <div className="text-center text-gray-400 text-sm">
+              Start typing to search for users to chat with
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
