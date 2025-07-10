@@ -14,6 +14,7 @@ export default function Login() {
   const [password1, setPassword1] = useState("");
   const [proImage, setProImage] = useState(null);
   const [inProcess, setInProcess] = useState(false);
+  const [inProcess1, setInProcess1] = useState(false);
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -24,9 +25,21 @@ export default function Login() {
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
     e.preventDefault();
-    
+    setInProcess1(true)
+    try{
+      await signInWithEmailAndPassword(auth, email1, password1)
+      toast.success("Login Successfully !!")
+      setInProcess(false)
+    }
+    catch(err){
+      console.log(err);
+      toast.error(err.code)
+    }
+    finally{
+      setInProcess1(false)
+    }
   };
 
   const handleRegister = async (e) => {
@@ -71,7 +84,7 @@ export default function Login() {
 
       toast.success("Register Successfully !!");
     } catch (err) {
-      console.log("Error in REGISTER : " );
+      console.log("Error in REGISTER : ", err );
       toast.error(err.code);
     } finally {
       setInProcess(false);
@@ -109,7 +122,9 @@ export default function Login() {
               type="submit"
               className="w-full py-2 mt-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition-colors"
             >
-              Login
+              {
+                (!inProcess1) ? "Login" : "Loading ..."
+              }
             </button>
           </form>
         </div>
