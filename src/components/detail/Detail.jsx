@@ -21,9 +21,6 @@ export default function Detail() {
     try {
       await signOut(auth);
       toast.success("Logged out successfully!");
-      // You can add navigation logic here if needed
-      // For example, redirect to login page
-      window.location.href = "/";
     } catch (error) {
       console.error("Error logging out:", error);
       toast.error("Failed to logout. Please try again.");
